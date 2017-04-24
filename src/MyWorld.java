@@ -58,7 +58,7 @@ public class MyWorld extends World {
          chose from: 1, 2, 3.  Refer to the Assignment2 instructions for
          explanation of the three percept formats.
       */
-     int perceptFormat = 2;     
+     int perceptFormat = 1;     
      
      // Instantiate MyWorld object.  The rest of the application is driven
      // from the window that will be displayed.
@@ -119,6 +119,8 @@ public class MyWorld extends World {
      MyCreature[] old_population = (MyCreature[]) old_population_btc;
      // Create a new array for the new population
      MyCreature[] new_population = new MyCreature[numCreatures];
+	  
+	  float[] fitness = new float[numCreatures];
      
      // Here is how you can get information about old creatures and how
      // well they did in the simulation
@@ -154,8 +156,19 @@ public class MyWorld extends World {
      System.out.println("Simulation stats:");
      System.out.println("  Survivors    : " + nSurvivors + " out of " + numCreatures);
      System.out.println("  Avg life time: " + avgLifeTime + " turns");
-
-     
+	
+	  //Fitness function
+     for(int i = 0; i < numCreatures; i++) {
+		  MyCreature c = old_population[i];
+		  float multiplier;
+		  if(c.isDead()) {
+			  multiplier = (((float)c.getEnergy()+1)/100);
+		  } else {
+			  multiplier = 1 + (((float)c.getEnergy()+1)/100);
+		  }
+		  fitness[i] = (float)c.timeOfDeath() * multiplier;
+	  }
+	  
      // Having some way of measuring the fitness, you should implement a proper
      // parent selection method here and create a set of new creatures.  You need
      // to create numCreatures of the new creatures.  If you'd like to have
@@ -163,7 +176,35 @@ public class MyWorld extends World {
      // example code uses all the creatures from the old generation in the
      // new generation.
      for(int i=0;i<numCreatures; i++) {
-        new_population[i] = old_population[i];
+		  Random rand = new Random();
+		  int subsetStart = rand.nextInt(numCreatures-10);
+		  float parent1 = 0;
+		  float parent2 = 0;
+		  int parent1Pos = 0;
+		  int parent2Pos = 0;
+		  
+		  //Determin two fittest creatures from subset of 10
+		  for(int j = subsetStart; j < subsetStart+10; j++) {
+			  if(fitness[j] > parent1) {
+				  parent1 = fitness[j];
+				  parent1Pos = j;
+			  } else if (fitness[j] > parent2) {
+				  parent2 = fitness[j];
+				  parent2Pos = j;
+			  }
+		  }
+		  
+		  
+		  MyCreature child = new MyCreature(this.expectedNumberofPercepts(), this.expectedNumberofActions());
+		  
+		  for(int j = 0; j < child.chromosome.length/2; j++) {
+			  child.chromosome[j] = old_population[parent1Pos].chromosome[j];
+		  }
+		  for(int j = child.chromosome.length/2; j < child.chromosome.length; j++) {
+			  child.chromosome[j] = old_population[parent2Pos].chromosome[j];
+		  }
+		  
+        new_population[i] = child;
      }
      
      

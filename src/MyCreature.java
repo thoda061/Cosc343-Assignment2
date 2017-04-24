@@ -25,8 +25,8 @@ public class MyCreature extends Creature {
                       to produce on every turn
   */
   public MyCreature(int numPercepts, int numActions) {
-	  chromosome = new Float[27];
-	  for(int i = 0; i < 27; i++) {
+	  chromosome = new Float[8];
+	  for(int i = 0; i < 8; i++) {
 		  chromosome[i] = rand.nextFloat();
 	  }
   }
@@ -55,17 +55,25 @@ public class MyCreature extends Creature {
       // the percepts.  You need to replace this code.
       float actions[] = new float[numExpectedActions];
 		
-		for(int i =0; i < 9; i++){
+		if(percepts[0] != 0 && percepts[1] != 0) {
+			String posistion = String.valueOf(percepts[0]) + String.valueOf(percepts[1]);
+			switch(posistion):
+					  case"10" :
+						  
+		}
+		
+		//For percept format 2
+		/*for(int i =0; i < 9; i++){
 			Float[] x = new Float[3];
-			x[0] = 1-(percepts[i] * chromosome[i]);
-			x[1] = percepts[i+9] * chromosome[i+9];
+			x[0] = percepts[i] * chromosome[0];
+			x[1] = percepts[i+9] * chromosome[1];
 			int tempVal;
 			if(percepts[i+18] != 0) {
 				tempVal = 1;
 			} else {
 				tempVal = 0;
 			}
-			x[2] = tempVal * chromosome[i+18];
+			x[2] = tempVal * chromosome[2];
 			if(x[1] > x[2] && x[1] > x[0]) {
 				actions[i] = x[1];
 			} else if (x[2] > x[1] && x[2] > x[0]){
@@ -75,17 +83,17 @@ public class MyCreature extends Creature {
 			}
 		}
 		
-		actions[9] = chromosome[26] * percepts[26];
+		if(percepts[26] != 0) {
+			actions[9] = chromosome[26];
+		} else {
+			actions[9] = 0;
+		}
 		
 		actions[10] = rand.nextFloat();
 		
-		return actions;
+		return actions;*/
 		
-		/*float actions[] = new float[numExpectedActions];
-      for(int i=0;i<numExpectedActions;i++) {
-         actions[i]=rand.nextFloat();
-      } 
-      return actions;*/
+		return actions;
   }
   
 }
