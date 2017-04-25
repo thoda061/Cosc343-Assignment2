@@ -15,7 +15,7 @@ public class MyCreature extends Creature {
   // Random number generator
   Random rand = new Random();
   
-  Float[] chromosome;
+  float[] chromosome;
 
   /* Empty constructor - might be a good idea here to put the code that 
    initialises the chromosome to some random state   
@@ -25,7 +25,7 @@ public class MyCreature extends Creature {
                       to produce on every turn
   */
   public MyCreature(int numPercepts, int numActions) {
-	  chromosome = new Float[8];
+	  chromosome = new float[8];
 	  for(int i = 0; i < 8; i++) {
 		  chromosome[i] = rand.nextFloat();
 	  }
@@ -54,44 +54,209 @@ public class MyCreature extends Creature {
       // At the moment, the actions are chosen completely at random, ignoring
       // the percepts.  You need to replace this code.
       float actions[] = new float[numExpectedActions];
+		for(float i: actions) {
+			i = 0.0f;
+		}
 		
-		if(percepts[0] != 0 && percepts[1] != 0) {
+		//Determins whether to run away or go to monster
+		if(percepts[0] != 0 || percepts[1] != 0) {
 			String posistion = String.valueOf(percepts[0]) + String.valueOf(percepts[1]);
-			switch(posistion):
-					  case"10" :
-						  
-		}
-		
-		//For percept format 2
-		/*for(int i =0; i < 9; i++){
-			Float[] x = new Float[3];
-			x[0] = percepts[i] * chromosome[0];
-			x[1] = percepts[i+9] * chromosome[1];
-			int tempVal;
-			if(percepts[i+18] != 0) {
-				tempVal = 1;
-			} else {
-				tempVal = 0;
+			switch(posistion){
+					case"10" :
+						if(chromosome[0] > chromosome[1] && chromosome[0] > actions[0]) {
+							actions[0] = chromosome[0];
+						} else if (chromosome[1] > chromosome[0] && chromosome[1] > actions[1]) {
+							actions[1] = chromosome[1];
+						}
+						break;
+					case"-10" :
+						if(chromosome[0] > chromosome[1] && chromosome[0] > actions[1]) {
+							actions[1] = chromosome[0];
+						} else if (chromosome[1] > chromosome[0] && chromosome[1] > actions[0]) {
+							actions[0] = chromosome[1];
+						}
+						break;
+					case"0-1" :
+						if(chromosome[0] > chromosome[1] && chromosome[0] > actions[2]) {
+							actions[2] = chromosome[0];
+						} else if (chromosome[1] > chromosome[0] && chromosome[1] > actions[3]) {
+							actions[3] = chromosome[1];
+						}
+						break;
+					case"01" :
+						if(chromosome[0] > chromosome[1] && chromosome[0] > actions[3]) {
+							actions[3] = chromosome[0];
+						} else if (chromosome[1] > chromosome[0] && chromosome[1] > actions[2]) {
+							actions[2] = chromosome[1];
+						}
+						break;
+					case"1-1" :
+						if(chromosome[0] > chromosome[1] && chromosome[0] > actions[4]) {
+							actions[4] = chromosome[0];
+						} else if (chromosome[1] > chromosome[0] && chromosome[1] > actions[7]) {
+							actions[7] = chromosome[1];
+						}
+						break;
+					case"11" :
+						if(chromosome[0] > chromosome[1] && chromosome[0] > actions[5]) {
+							actions[5] = chromosome[0];
+						} else if (chromosome[1] > chromosome[0] && chromosome[1] > actions[6]) {
+							actions[6] = chromosome[1];
+						}
+						break;
+					case"-1-1" :
+						if(chromosome[0] > chromosome[1] && chromosome[0] > actions[6]) {
+							actions[6] = chromosome[0];
+						} else if (chromosome[1] > chromosome[0] && chromosome[1] > actions[5]) {
+							actions[5] = chromosome[1];
+						}
+						break;
+					case"-11" :
+						if(chromosome[0] > chromosome[1] && chromosome[0] > actions[7]) {
+							actions[7] = chromosome[0];
+						} else if (chromosome[1] > chromosome[0] && chromosome[1] > actions[4]) {
+							actions[4] = chromosome[1];
+						}
+						break;
 			}
-			x[2] = tempVal * chromosome[2];
-			if(x[1] > x[2] && x[1] > x[0]) {
-				actions[i] = x[1];
-			} else if (x[2] > x[1] && x[2] > x[0]){
-				actions[i] = x[2];
-			} else {
-				actions[i] = x[0];
+		}
+		
+		//Determins whether to run away or go to creature
+		if(percepts[2] != 0 || percepts[3] != 0) {
+			String posistion = String.valueOf(percepts[2]) + String.valueOf(percepts[3]);
+			switch(posistion){
+					case"10" :
+						if(chromosome[2] > chromosome[3] && chromosome[2] > actions[0]) {
+							actions[0] = chromosome[2];
+						} else if (chromosome[3] > chromosome[2] && chromosome[3] > actions[1]) {
+							actions[1] = chromosome[3];
+						}
+						break;
+					case"-10" :
+						if(chromosome[2] > chromosome[3] && chromosome[2] > actions[1]) {
+							actions[1] = chromosome[2];
+						} else if (chromosome[3] > chromosome[2] && chromosome[3] > actions[0]) {
+							actions[0] = chromosome[3];
+						}
+						break;
+					case"0-1" :
+						if(chromosome[2] > chromosome[3] && chromosome[2] > actions[2]) {
+							actions[2] = chromosome[2];
+						} else if (chromosome[3] > chromosome[2] && chromosome[3] > actions[3]) {
+							actions[3] = chromosome[3];
+						}
+						break;
+					case"01" :
+						if(chromosome[2] > chromosome[3] && chromosome[2] > actions[3]) {
+							actions[3] = chromosome[2];
+						} else if (chromosome[3] > chromosome[2] && chromosome[3] > actions[2]) {
+							actions[2] = chromosome[2];
+						}
+						break;
+					case"1-1" :
+						if(chromosome[2] > chromosome[3] && chromosome[2] > actions[4]) {
+							actions[4] = chromosome[2];
+						} else if (chromosome[3] > chromosome[2] && chromosome[3] > actions[7]) {
+							actions[7] = chromosome[3];
+						}
+						break;
+					case"11" :
+						if(chromosome[2] > chromosome[3] && chromosome[2] > actions[5]) {
+							actions[5] = chromosome[2];
+						} else if (chromosome[3] > chromosome[2] && chromosome[3] > actions[6]) {
+							actions[6] = chromosome[3];
+						}
+						break;
+					case"-1-1" :
+						if(chromosome[2] > chromosome[3] && chromosome[2] > actions[6]) {
+							actions[6] = chromosome[2];
+						} else if (chromosome[3] > chromosome[2] && chromosome[3] > actions[5]) {
+							actions[5] = chromosome[3];
+						}
+						break;
+					case"-11" :
+						if(chromosome[2] > chromosome[3] && chromosome[2] > actions[7]) {
+							actions[7] = chromosome[2];
+						} else if (chromosome[3] > chromosome[2] && chromosome[3] > actions[4]) {
+							actions[4] = chromosome[3];
+						}
+						break;
 			}
 		}
 		
-		if(percepts[26] != 0) {
-			actions[9] = chromosome[26];
-		} else {
-			actions[9] = 0;
+		//Determins whether to run away or go to food
+		if(percepts[4] != 0 || percepts[5] != 0) {
+			String posistion = String.valueOf(percepts[4]) + String.valueOf(percepts[5]);
+			switch(posistion){
+					case"10" :
+						if(chromosome[4] > chromosome[5] && chromosome[4] > actions[0]) {
+							actions[0] = chromosome[4];
+						} else if (chromosome[5] > chromosome[4] && chromosome[5] > actions[1]) {
+							actions[1] = chromosome[5];
+						}
+						break;
+					case"-10" :
+						if(chromosome[4] > chromosome[5] && chromosome[4] > actions[1]) {
+							actions[1] = chromosome[4];
+						} else if (chromosome[5] > chromosome[4] && chromosome[5] > actions[0]) {
+							actions[0] = chromosome[5];
+						}
+						break;
+					case"0-1" :
+						if(chromosome[4] > chromosome[5] && chromosome[4] > actions[2]) {
+							actions[2] = chromosome[4];
+						} else if (chromosome[5] > chromosome[4] && chromosome[5] > actions[3]) {
+							actions[3] = chromosome[5];
+						}
+						break;
+					case"01" :
+						if(chromosome[4] > chromosome[5] && chromosome[4] > actions[3]) {
+							actions[3] = chromosome[4];
+						} else if (chromosome[5] > chromosome[4] && chromosome[5] > actions[2]) {
+							actions[2] = chromosome[4];
+						}
+						break;
+					case"1-1" :
+						if(chromosome[4] > chromosome[5] && chromosome[4] > actions[4]) {
+							actions[4] = chromosome[4];
+						} else if (chromosome[5] > chromosome[4] && chromosome[5] > actions[7]) {
+							actions[7] = chromosome[5];
+						}
+						break;
+					case"11" :
+						if(chromosome[4] > chromosome[5] && chromosome[4] > actions[5]) {
+							actions[5] = chromosome[4];
+						} else if (chromosome[5] > chromosome[4] && chromosome[5] > actions[6]) {
+							actions[6] = chromosome[5];
+						}
+						break;
+					case"-1-1" :
+						if(chromosome[4] > chromosome[5] && chromosome[4] > actions[6]) {
+							actions[6] = chromosome[4];
+						} else if (chromosome[5] > chromosome[4] && chromosome[5] > actions[5]) {
+							actions[5] = chromosome[5];
+						}
+						break;
+					case"-11" :
+						if(chromosome[4] > chromosome[5] && chromosome[4] > actions[7]) {
+							actions[7] = chromosome[4];
+						} else if (chromosome[5] > chromosome[4] && chromosome[5] > actions[4]) {
+							actions[4] = chromosome[5];
+						}
+						break;
+			}
 		}
 		
-		actions[10] = rand.nextFloat();
+		if(percepts[6] == 1) {
+			actions[9] = chromosome[6];
+		}
 		
-		return actions;*/
+		if(percepts[7] == 1) {
+			actions[9] = chromosome[7];
+		}
+		
+		//If all other action are 0, this ensures a random move.
+		actions[10] = 0.000001f;
 		
 		return actions;
   }
