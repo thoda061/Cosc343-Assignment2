@@ -150,21 +150,25 @@ public class MyWorld extends World {
      }
 	
     //Fitness function
-     for(int i = 0; i < numCreatures; i++) {
-	MyCreature c = old_population[i];
-	float multiplier;
-	if(c.isDead()) {
-            multiplier = (((float)c.getEnergy()+1)/100);
-	} else {
-            multiplier = 1 + (((float)c.getEnergy()+1)/100);
+   for(int i = 0; i < numCreatures; i++) {
+		MyCreature c = old_population[i];
+		float multiplier;
+		if(c.isDead()) {
+			multiplier = (((float)c.getEnergy()+1)/100);
+		} else {
+		 multiplier = 1 + (((float)c.getEnergy()+1)/100);
+		}
+		if(c.isDead()) {
+			fitness[i] = (float)c.timeOfDeath() * multiplier;
+		} else {
+			fitness[i] = (float)_numTurns * multiplier;
+		}
 	}
-        fitness[i] = (float)c.timeOfDeath() * multiplier;
-     }
      
-     float avgFit = 0f;
-     for(int i =0; i < fitness.length; i++) {
-         avgFit += fitness[i];
-     }
+   float avgFit = 0f;
+   for(int i =0; i < fitness.length; i++) {
+      avgFit += fitness[i];
+   }
      
      // Right now the information is used to print some stats...but you should
      // use this information to access creatures fitness.  It's up to you how
@@ -194,7 +198,7 @@ public class MyWorld extends World {
      }
      
      
-     fitPlusCreature = selectionSort(fitPlusCreature, numCreatures);
+     fitPlusCreature = selectionSort(fitPlusCreature, numCreatures, false);
      
      for(int i =0; i<fitPlusCreature.length; i++) {
          System.out.println(fitPlusCreature[i][1]);
@@ -206,7 +210,7 @@ public class MyWorld extends World {
      }
      
      
-     for(int i=5;i<numCreatures; i++) {
+   for(int i=5;i<numCreatures; i++) {
 	Random rand = new Random();
 	int subsetStart = rand.nextInt(numCreatures-2);
 	float parent1 = 0;
@@ -220,8 +224,8 @@ public class MyWorld extends World {
                 parent1 = (float)fitPlusCreature[j][1];
                 parent1Pos = j;
             } else if ((float)fitPlusCreature[j][1] > parent2) {
-		parent2 = (float)fitPlusCreature[j][1];
-		parent2Pos = j;
+					parent2 = (float)fitPlusCreature[j][1];
+					parent2Pos = j;
             }
 	}
 		  
@@ -244,7 +248,7 @@ public class MyWorld extends World {
   }
   
   //Sorts population of creature based on thier fitness
-  public Object[][] selectionSort(Object[][] fitPlusCreature, int numCreatures) {
+  public Object[][] selectionSort(Object[][] fitPlusCreature, int numCreatures, boolean ascending) {
       float small;
       int pSmall;
       Object[] pVal;
@@ -252,10 +256,17 @@ public class MyWorld extends World {
           small = (float)fitPlusCreature[p][1];
           pSmall = p;
           for(int i = p; i < numCreatures; i++) {
-              if((float)fitPlusCreature[i][1] > small) {
-                  small = (float)fitPlusCreature[i][1];
-                  pSmall = i;
-              }
+				 if(ascending) {
+					if((float)fitPlusCreature[i][1] < small) {
+						 small = (float)fitPlusCreature[i][1];
+						 pSmall = i;
+					}
+				 } else {
+					 if((float)fitPlusCreature[i][1] > small) {
+						 small = (float)fitPlusCreature[i][1];
+						 pSmall = i;
+					}
+				 }
           }
           pVal = fitPlusCreature[p];
           fitPlusCreature[p] = fitPlusCreature[pSmall];
