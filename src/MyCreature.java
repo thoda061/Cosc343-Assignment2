@@ -62,14 +62,14 @@ public class MyCreature extends Creature {
 		if(percepts[0] != 0 || percepts[1] != 0) {
 			String posistion = String.valueOf(percepts[0]) + String.valueOf(percepts[1]);
 			switch(posistion){
-					case"10" :
+					case"-10" :
 						if(chromosome[0] > chromosome[1] && chromosome[0] > actions[0]) {
 							actions[0] = chromosome[0];
 						} else if (chromosome[1] > chromosome[0] && chromosome[1] > actions[1]) {
 							actions[1] = chromosome[1];
 						}
 						break;
-					case"-10" :
+					case"10" :
 						if(chromosome[0] > chromosome[1] && chromosome[0] > actions[1]) {
 							actions[1] = chromosome[0];
 						} else if (chromosome[1] > chromosome[0] && chromosome[1] > actions[0]) {
@@ -90,28 +90,28 @@ public class MyCreature extends Creature {
 							actions[2] = chromosome[1];
 						}
 						break;
-					case"1-1" :
+					case"-1-1" :
 						if(chromosome[0] > chromosome[1] && chromosome[0] > actions[4]) {
 							actions[4] = chromosome[0];
 						} else if (chromosome[1] > chromosome[0] && chromosome[1] > actions[7]) {
 							actions[7] = chromosome[1];
 						}
 						break;
-					case"11" :
+					case"-11" :
 						if(chromosome[0] > chromosome[1] && chromosome[0] > actions[5]) {
 							actions[5] = chromosome[0];
 						} else if (chromosome[1] > chromosome[0] && chromosome[1] > actions[6]) {
 							actions[6] = chromosome[1];
 						}
 						break;
-					case"-1-1" :
+					case"1-1" :
 						if(chromosome[0] > chromosome[1] && chromosome[0] > actions[6]) {
 							actions[6] = chromosome[0];
 						} else if (chromosome[1] > chromosome[0] && chromosome[1] > actions[5]) {
 							actions[5] = chromosome[1];
 						}
 						break;
-					case"-11" :
+					case"11" :
 						if(chromosome[0] > chromosome[1] && chromosome[0] > actions[7]) {
 							actions[7] = chromosome[0];
 						} else if (chromosome[1] > chromosome[0] && chromosome[1] > actions[4]) {
@@ -125,14 +125,14 @@ public class MyCreature extends Creature {
 		if(percepts[2] != 0 || percepts[3] != 0) {
 			String posistion = String.valueOf(percepts[2]) + String.valueOf(percepts[3]);
 			switch(posistion){
-					case"10" :
+					case"-10" :
 						if(chromosome[2] > chromosome[3] && chromosome[2] > actions[0]) {
 							actions[0] = chromosome[2];
 						} else if (chromosome[3] > chromosome[2] && chromosome[3] > actions[1]) {
 							actions[1] = chromosome[3];
 						}
 						break;
-					case"-10" :
+					case"10" :
 						if(chromosome[2] > chromosome[3] && chromosome[2] > actions[1]) {
 							actions[1] = chromosome[2];
 						} else if (chromosome[3] > chromosome[2] && chromosome[3] > actions[0]) {
@@ -153,28 +153,28 @@ public class MyCreature extends Creature {
 							actions[2] = chromosome[2];
 						}
 						break;
-					case"1-1" :
+					case"-1-1" :
 						if(chromosome[2] > chromosome[3] && chromosome[2] > actions[4]) {
 							actions[4] = chromosome[2];
 						} else if (chromosome[3] > chromosome[2] && chromosome[3] > actions[7]) {
 							actions[7] = chromosome[3];
 						}
 						break;
-					case"11" :
+					case"-11" :
 						if(chromosome[2] > chromosome[3] && chromosome[2] > actions[5]) {
 							actions[5] = chromosome[2];
 						} else if (chromosome[3] > chromosome[2] && chromosome[3] > actions[6]) {
 							actions[6] = chromosome[3];
 						}
 						break;
-					case"-1-1" :
+					case"1-1" :
 						if(chromosome[2] > chromosome[3] && chromosome[2] > actions[6]) {
 							actions[6] = chromosome[2];
 						} else if (chromosome[3] > chromosome[2] && chromosome[3] > actions[5]) {
 							actions[5] = chromosome[3];
 						}
 						break;
-					case"-11" :
+					case"11" :
 						if(chromosome[2] > chromosome[3] && chromosome[2] > actions[7]) {
 							actions[7] = chromosome[2];
 						} else if (chromosome[3] > chromosome[2] && chromosome[3] > actions[4]) {
@@ -188,14 +188,14 @@ public class MyCreature extends Creature {
 		if(percepts[4] != 0 || percepts[5] != 0) {
 			String posistion = String.valueOf(percepts[4]) + String.valueOf(percepts[5]);
 			switch(posistion){
-					case"10" :
+					case"-10" :
 						if(chromosome[4] > chromosome[5] && chromosome[4] > actions[0]) {
 							actions[0] = chromosome[4];
 						} else if (chromosome[5] > chromosome[4] && chromosome[5] > actions[1]) {
 							actions[1] = chromosome[5];
 						}
 						break;
-					case"-10" :
+					case"10" :
 						if(chromosome[4] > chromosome[5] && chromosome[4] > actions[1]) {
 							actions[1] = chromosome[4];
 						} else if (chromosome[5] > chromosome[4] && chromosome[5] > actions[0]) {
@@ -216,28 +216,28 @@ public class MyCreature extends Creature {
 							actions[2] = chromosome[4];
 						}
 						break;
-					case"1-1" :
+					case"-1-1" :
 						if(chromosome[4] > chromosome[5] && chromosome[4] > actions[4]) {
 							actions[4] = chromosome[4];
 						} else if (chromosome[5] > chromosome[4] && chromosome[5] > actions[7]) {
 							actions[7] = chromosome[5];
 						}
 						break;
-					case"11" :
+					case"-11" :
 						if(chromosome[4] > chromosome[5] && chromosome[4] > actions[5]) {
 							actions[5] = chromosome[4];
 						} else if (chromosome[5] > chromosome[4] && chromosome[5] > actions[6]) {
 							actions[6] = chromosome[5];
 						}
 						break;
-					case"-1-1" :
+					case"1-1" :
 						if(chromosome[4] > chromosome[5] && chromosome[4] > actions[6]) {
 							actions[6] = chromosome[4];
 						} else if (chromosome[5] > chromosome[4] && chromosome[5] > actions[5]) {
 							actions[5] = chromosome[5];
 						}
 						break;
-					case"-11" :
+					case"11" :
 						if(chromosome[4] > chromosome[5] && chromosome[4] > actions[7]) {
 							actions[7] = chromosome[4];
 						} else if (chromosome[5] > chromosome[4] && chromosome[5] > actions[4]) {
