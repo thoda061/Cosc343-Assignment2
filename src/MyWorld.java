@@ -120,18 +120,19 @@ public class MyWorld extends World {
      // Create a new array for the new population
      MyCreature[] new_population = new MyCreature[numCreatures];
 	  
-	  float[] fitness = new float[numCreatures];
+    float[] fitness = new float[numCreatures];
      
      // Here is how you can get information about old creatures and how
      // well they did in the simulation
      float avgLifeTime=0f;
      int nSurvivors = 0;
+     float avgEnegryLeft=0f;
      for(MyCreature creature : old_population) {
         // The energy of the creature.  This is zero if creature starved to
         // death, non-negative oterhwise.  If this number is zero, but the 
         // creature is dead, then this number gives the enrgy of the creature
         // at the time of death.
-        int energy = creature.getEnergy();
+        avgEnegryLeft += creature.getEnergy();
 
         // This querry can tell you if the creature died during simulation
         // or not.  
@@ -147,27 +148,36 @@ public class MyWorld extends World {
            avgLifeTime += (float) _numTurns;
         }
      }
-
+	
+    //Fitness function
+     for(int i = 0; i < numCreatures; i++) {
+	MyCreature c = old_population[i];
+	float multiplier;
+	if(c.isDead()) {
+            multiplier = (((float)c.getEnergy()+1)/100);
+	} else {
+            multiplier = 1 + (((float)c.getEnergy()+1)/100);
+	}
+        fitness[i] = (float)c.timeOfDeath() * multiplier;
+     }
+     
+     float avgFit = 0f;
+     for(int i =0; i < fitness.length; i++) {
+         avgFit += fitness[i];
+     }
+     
      // Right now the information is used to print some stats...but you should
      // use this information to access creatures fitness.  It's up to you how
      // you define your fitness function.  You should add a print out or
      // some visual display of average fitness over generations.
      avgLifeTime /= (float) numCreatures;
+     avgFit /= (float) numCreatures; 
+     avgEnegryLeft /= numCreatures;
      System.out.println("Simulation stats:");
      System.out.println("  Survivors    : " + nSurvivors + " out of " + numCreatures);
      System.out.println("  Avg life time: " + avgLifeTime + " turns");
-	
-	  //Fitness function
-     for(int i = 0; i < numCreatures; i++) {
-		  MyCreature c = old_population[i];
-		  float multiplier;
-		  if(c.isDead()) {
-			  multiplier = (((float)c.getEnergy()+1)/100);
-		  } else {
-			  multiplier = 1 + (((float)c.getEnergy()+1)/100);
-		  }
-		  fitness[i] = (float)c.timeOfDeath() * multiplier;
-	  }
+     System.out.println("  Avg enegry eft: " + avgEnegryLeft);
+     System.out.println("  Avg fitness: " + avgFit);
 	  
      // Having some way of measuring the fitness, you should implement a proper
      // parent selection method here and create a set of new creatures.  You need
@@ -175,34 +185,55 @@ public class MyWorld extends World {
      // some elitism, you can use old creatures in the next generation.  This
      // example code uses all the creatures from the old generation in the
      // new generation.
+     
+     Object[][] fitPlusCreature = new Object[numCreatures][2];
+     
      for(int i=0;i<numCreatures; i++) {
-		  Random rand = new Random();
-		  int subsetStart = rand.nextInt(numCreatures-10);
-		  float parent1 = 0;
-		  float parent2 = 0;
-		  int parent1Pos = 0;
-		  int parent2Pos = 0;
+         fitPlusCreature[i][0] = old_population[i];
+         fitPlusCreature[i][1] = fitness[i];
+     }
+     
+     
+     fitPlusCreature = selectionSort(fitPlusCreature, numCreatures);
+     
+     for(int i =0; i<fitPlusCreature.length; i++) {
+         System.out.println(fitPlusCreature[i][1]);
+     }
+     
+     
+     for(int i =0; i<5; i++) {
+         new_population[i] = (MyCreature)fitPlusCreature[i][0];
+     }
+     
+     
+     for(int i=5;i<numCreatures; i++) {
+	Random rand = new Random();
+	int subsetStart = rand.nextInt(numCreatures-2);
+	float parent1 = 0;
+	float parent2 = 0;
+	int parent1Pos = 0;
+	int parent2Pos = 0;
 		  
-		  //Determin two fittest creatures from subset of 10
-		  for(int j = subsetStart; j < subsetStart+10; j++) {
-			  if(fitness[j] > parent1) {
-				  parent1 = fitness[j];
-				  parent1Pos = j;
-			  } else if (fitness[j] > parent2) {
-				  parent2 = fitness[j];
-				  parent2Pos = j;
-			  }
-		  }
+	//Determin two fittest creatures from subset of 10
+	for(int j = subsetStart; j < subsetStart+2; j++) {
+            if((float)fitPlusCreature[j][1] > parent1) {
+                parent1 = (float)fitPlusCreature[j][1];
+                parent1Pos = j;
+            } else if ((float)fitPlusCreature[j][1] > parent2) {
+		parent2 = (float)fitPlusCreature[j][1];
+		parent2Pos = j;
+            }
+	}
 		  
 		  
-		  MyCreature child = new MyCreature(this.expectedNumberofPercepts(), this.expectedNumberofActions());
+	MyCreature child = new MyCreature(this.expectedNumberofPercepts(), this.expectedNumberofActions());
 		  
-		  for(int j = 0; j < child.chromosome.length/2; j++) {
-			  child.chromosome[j] = old_population[parent1Pos].chromosome[j];
-		  }
-		  for(int j = child.chromosome.length/2; j < child.chromosome.length; j++) {
-			  child.chromosome[j] = old_population[parent2Pos].chromosome[j];
-		  }
+        for(int j = 0; j < child.chromosome.length/2; j++) {
+            child.chromosome[j] = ((MyCreature)fitPlusCreature[parent1Pos][0]).chromosome[j];
+        }
+        for(int j = child.chromosome.length/2; j < child.chromosome.length; j++) {
+            child.chromosome[j] = ((MyCreature)fitPlusCreature[parent2Pos][0]).chromosome[j];
+        }
 		  
         new_population[i] = child;
      }
@@ -210,6 +241,27 @@ public class MyWorld extends World {
      
      // Return new population of cratures.
      return new_population;
+  }
+  
+  //Sorts population of creature based on thier fitness
+  public Object[][] selectionSort(Object[][] fitPlusCreature, int numCreatures) {
+      float small;
+      int pSmall;
+      Object[] pVal;
+      for(int p = 0; p < (numCreatures - 1); p++) {
+          small = (float)fitPlusCreature[p][1];
+          pSmall = p;
+          for(int i = p; i < numCreatures; i++) {
+              if((float)fitPlusCreature[i][1] > small) {
+                  small = (float)fitPlusCreature[i][1];
+                  pSmall = i;
+              }
+          }
+          pVal = fitPlusCreature[p];
+          fitPlusCreature[p] = fitPlusCreature[pSmall];
+          fitPlusCreature[pSmall] = pVal;
+      }
+      return fitPlusCreature;
   }
   
 }
