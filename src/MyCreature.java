@@ -64,60 +64,60 @@ public class MyCreature extends Creature {
 			float goTowards = (chromosome[0] + chromosome[1])/2;
 			float goAway = (chromosome[2] + chromosome[3])/2;
 			switch(posistion){
-					case"-10" :
-						if(goTowards > goAway && goTowards > actions[0]) {
-							actions[0] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[1]) {
-							actions[1] = goAway;
-						}
-						break;
-					case"10" :
-						if(goTowards > goAway && goTowards > actions[1]) {
-							actions[1] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[0]) {
-							actions[0] = goAway;
-						}
-						break;
 					case"0-1" :
-						if(goTowards > goAway && goTowards > actions[2]) {
-							actions[2] = goTowards;
+						if(goTowards > goAway && goTowards > actions[3]) {
+							actions[3] = goTowards;
+						} else if (goAway > goTowards && goAway > actions[5]) {
+							actions[5] = goAway;
+						}
+						break;
+					case"01" :
+						if(goTowards > goAway && goTowards > actions[5]) {
+							actions[5] = goTowards;
 						} else if (goAway > goTowards && goAway > actions[3]) {
 							actions[3] = goAway;
 						}
 						break;
-					case"01" :
-						if(goTowards > goAway && goTowards > actions[3]) {
-							actions[3] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[2]) {
-							actions[2] = goAway;
-						}
-						break;
-					case"-1-1" :
-						if(goTowards > goAway && goTowards > actions[4]) {
-							actions[4] = goTowards;
+					case"-10" :
+						if(goTowards > goAway && goTowards > actions[1]) {
+							actions[1] = goTowards;
 						} else if (goAway > goTowards && goAway > actions[7]) {
 							actions[7] = goAway;
 						}
 						break;
-					case"-11" :
-						if(goTowards > goAway && goTowards > actions[5]) {
-							actions[5] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[6]) {
-							actions[6] = goAway;
+					case"10" :
+						if(goTowards > goAway && goTowards > actions[7]) {
+							actions[7] = goTowards;
+						} else if (goAway > goTowards && goAway > actions[1]) {
+							actions[1] = goAway;
+						}
+						break;
+					case"-1-1" :
+						if(goTowards > goAway && goTowards > actions[0]) {
+							actions[0] = goTowards;
+						} else if (goAway > goTowards && goAway > actions[8]) {
+							actions[8] = goAway;
 						}
 						break;
 					case"1-1" :
 						if(goTowards > goAway && goTowards > actions[6]) {
 							actions[6] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[5]) {
-							actions[5] = goAway;
+						} else if (goAway > goTowards && goAway > actions[2]) {
+							actions[2] = goAway;
+						}
+						break;
+					case"-11" :
+						if(goTowards > goAway && goTowards > actions[2]) {
+							actions[2] = goTowards;
+						} else if (goAway > goTowards && goAway > actions[6]) {
+							actions[6] = goAway;
 						}
 						break;
 					case"11" :
-						if(goTowards > goAway && goTowards > actions[7]) {
-							actions[7] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[4]) {
-							actions[4] = goAway;
+						if(goTowards > goAway && goTowards > actions[8]) {
+							actions[8] = goTowards;
+						} else if (goAway > goTowards && goAway > actions[0]) {
+							actions[0] = goAway;
 						}
 						break;
 			}
@@ -129,60 +129,60 @@ public class MyCreature extends Creature {
 			float goTowards = (chromosome[4] + chromosome[5])/2;
 			float goAway = (chromosome[6] + chromosome[7])/2;
 			switch(posistion){
-					case"-10" :
-						if(goTowards > goAway && goTowards > actions[0]) {
-							actions[0] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[1]) {
-							actions[1] = goAway;
-						}
-						break;
-					case"10" :
-						if(goTowards > goAway && goTowards > actions[1]) {
-							actions[1] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[0]) {
-							actions[0] = goAway;
-						}
-						break;
 					case"0-1" :
-						if(goTowards > goAway && goTowards > actions[2]) {
-							actions[2] = goTowards;
+						if(goTowards > goAway && goTowards > actions[3]) {
+							actions[3] = goTowards;
+						} else if (goAway > goTowards && goAway > actions[5]) {
+							actions[5] = goAway;
+						}
+						break;
+					case"01" :
+						if(goTowards > goAway && goTowards > actions[5]) {
+							actions[5] = goTowards;
 						} else if (goAway > goTowards && goAway > actions[3]) {
 							actions[3] = goAway;
 						}
 						break;
-					case"01" :
-						if(goTowards > goAway && goTowards > actions[3]) {
-							actions[3] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[2]) {
-							actions[2] = goAway;
-						}
-						break;
-					case"-1-1" :
-						if(goTowards > goAway && goTowards > actions[4]) {
-							actions[4] = goTowards;
+					case"-10" :
+						if(goTowards > goAway && goTowards > actions[1]) {
+							actions[1] = goTowards;
 						} else if (goAway > goTowards && goAway > actions[7]) {
 							actions[7] = goAway;
 						}
 						break;
-					case"-11" :
-						if(goTowards > goAway && goTowards > actions[5]) {
-							actions[5] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[6]) {
-							actions[6] = goAway;
+					case"10" :
+						if(goTowards > goAway && goTowards > actions[7]) {
+							actions[7] = goTowards;
+						} else if (goAway > goTowards && goAway > actions[1]) {
+							actions[1] = goAway;
+						}
+						break;
+					case"-1-1" :
+						if(goTowards > goAway && goTowards > actions[0]) {
+							actions[0] = goTowards;
+						} else if (goAway > goTowards && goAway > actions[8]) {
+							actions[8] = goAway;
 						}
 						break;
 					case"1-1" :
 						if(goTowards > goAway && goTowards > actions[6]) {
 							actions[6] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[5]) {
-							actions[5] = goAway;
+						} else if (goAway > goTowards && goAway > actions[2]) {
+							actions[2] = goAway;
+						}
+						break;
+					case"-11" :
+						if(goTowards > goAway && goTowards > actions[2]) {
+							actions[2] = goTowards;
+						} else if (goAway > goTowards && goAway > actions[6]) {
+							actions[6] = goAway;
 						}
 						break;
 					case"11" :
-						if(goTowards > goAway && goTowards > actions[7]) {
-							actions[7] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[4]) {
-							actions[4] = goAway;
+						if(goTowards > goAway && goTowards > actions[8]) {
+							actions[8] = goTowards;
+						} else if (goAway > goTowards && goAway > actions[0]) {
+							actions[0] = goAway;
 						}
 						break;
 			}
@@ -194,60 +194,60 @@ public class MyCreature extends Creature {
 			float goTowards = (chromosome[8] + chromosome[9])/2;
 			float goAway = (chromosome[10] + chromosome[11])/2;
 			switch(posistion){
-					case"-10" :
-						if(goTowards > goAway && goTowards > actions[0]) {
-							actions[0] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[1]) {
-							actions[1] = goAway;
-						}
-						break;
-					case"10" :
-						if(goTowards > goAway && goTowards > actions[1]) {
-							actions[1] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[0]) {
-							actions[0] = goAway;
-						}
-						break;
 					case"0-1" :
-						if(goTowards > goAway && goTowards > actions[2]) {
-							actions[2] = goTowards;
+						if(goTowards > goAway && goTowards > actions[3]) {
+							actions[3] = goTowards;
+						} else if (goAway > goTowards && goAway > actions[5]) {
+							actions[5] = goAway;
+						}
+						break;
+					case"01" :
+						if(goTowards > goAway && goTowards > actions[5]) {
+							actions[5] = goTowards;
 						} else if (goAway > goTowards && goAway > actions[3]) {
 							actions[3] = goAway;
 						}
 						break;
-					case"01" :
-						if(goTowards > goAway && goTowards > actions[3]) {
-							actions[3] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[2]) {
-							actions[2] = goAway;
-						}
-						break;
-					case"-1-1" :
-						if(goTowards > goAway && goTowards > actions[4]) {
-							actions[4] = goTowards;
+					case"-10" :
+						if(goTowards > goAway && goTowards > actions[1]) {
+							actions[1] = goTowards;
 						} else if (goAway > goTowards && goAway > actions[7]) {
 							actions[7] = goAway;
 						}
 						break;
-					case"-11" :
-						if(goTowards > goAway && goTowards > actions[5]) {
-							actions[5] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[6]) {
-							actions[6] = goAway;
+					case"10" :
+						if(goTowards > goAway && goTowards > actions[7]) {
+							actions[7] = goTowards;
+						} else if (goAway > goTowards && goAway > actions[1]) {
+							actions[1] = goAway;
+						}
+						break;
+					case"-1-1" :
+						if(goTowards > goAway && goTowards > actions[0]) {
+							actions[0] = goTowards;
+						} else if (goAway > goTowards && goAway > actions[8]) {
+							actions[8] = goAway;
 						}
 						break;
 					case"1-1" :
 						if(goTowards > goAway && goTowards > actions[6]) {
 							actions[6] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[5]) {
-							actions[5] = goAway;
+						} else if (goAway > goTowards && goAway > actions[2]) {
+							actions[2] = goAway;
+						}
+						break;
+					case"-11" :
+						if(goTowards > goAway && goTowards > actions[2]) {
+							actions[2] = goTowards;
+						} else if (goAway > goTowards && goAway > actions[6]) {
+							actions[6] = goAway;
 						}
 						break;
 					case"11" :
-						if(goTowards > goAway && goTowards > actions[7]) {
-							actions[7] = goTowards;
-						} else if (goAway > goTowards && goAway > actions[4]) {
-							actions[4] = goAway;
+						if(goTowards > goAway && goTowards > actions[8]) {
+							actions[8] = goTowards;
+						} else if (goAway > goTowards && goAway > actions[0]) {
+							actions[0] = goAway;
 						}
 						break;
 			}

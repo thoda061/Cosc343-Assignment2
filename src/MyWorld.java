@@ -180,7 +180,7 @@ public MyCreature[] nextGeneration(Creature[] old_population_btc, int numCreatur
    System.out.println("Simulation stats:");
    System.out.println("  Survivors    : " + nSurvivors + " out of " + numCreatures);
    System.out.println("  Avg life time: " + avgLifeTime + " turns");
-   System.out.println("  Avg enegry eft: " + avgEnegryLeft);
+   System.out.println("  Avg enegry left: " + avgEnegryLeft);
    System.out.println("  Avg fitness: " + avgFit);
 	  
      // Having some way of measuring the fitness, you should implement a proper
@@ -200,17 +200,17 @@ public MyCreature[] nextGeneration(Creature[] old_population_btc, int numCreatur
      
    fitPlusCreature = selectionSort(fitPlusCreature, numCreatures, false);
      
-   for(int i =0; i<fitPlusCreature.length; i++) {
+   /*for(int i =0; i<fitPlusCreature.length; i++) {
       System.out.println(fitPlusCreature[i][1]);
-   }
+   }*/
 	
-	for(int i = 0; i <fitPlusCreature.length; i++) {
+	/*for(int i = 0; i <fitPlusCreature.length; i++) {
 		float[] chromo = ((MyCreature)fitPlusCreature[i][0]).chromosome;
 		System.out.println(chromo[0] + "," + chromo[1] + "," + chromo[2] + "," + chromo[3] + "," +
 				  chromo[4] + "," + chromo[5] + "," + chromo[6] + "," + chromo[7]  + "," + chromo[8]
 					 + "," + chromo[9]  + "," + chromo[10] + "," + chromo[11] + "," + chromo[12]
 					 + "," + chromo[13] + "," + chromo[14] + "," + chromo[15]);
-	}
+	}*/
      
      
    for(int i =0; i<5; i++) {
@@ -272,10 +272,44 @@ public MyCreature[] nextGeneration(Creature[] old_population_btc, int numCreatur
 		
 		for(int j = 0; j < child.chromosome.length; j++){
 			float flip = rand.nextFloat();
-			if(flip < 0.5) {
-				child.chromosome[j] = ((MyCreature)fitPlusCreature[parentPos1][0]).chromosome[j];
+			float mutation = rand.nextFloat();
+			float mutationChange;
+			
+			
+			if(mutation < 0.01) {
+				if(flip < 0.5) {
+					mutationChange = -0.1f;
+				} else {
+					mutationChange = 0.1f;
+				}
+			} else if (mutation < 0.11) {
+				if(flip < 0.5) {
+					mutationChange = -0.01f;
+				} else {
+					mutationChange = 0.01f;
+				}
 			} else {
-				child.chromosome[j] = ((MyCreature)fitPlusCreature[parentPos2][0]).chromosome[j];
+				if(flip < 0.5) {
+					mutationChange = -0.001f;
+				} else {
+					mutationChange = 0.001f;
+				}
+			}
+			
+			flip = rand.nextFloat();
+			
+			if(flip < 0.5) {
+				if(((MyCreature)fitPlusCreature[parentPos1][0]).chromosome[j] + mutationChange < 1 && ((MyCreature)fitPlusCreature[parentPos1][0]).chromosome[j] + mutationChange > 0) {
+					child.chromosome[j] = ((MyCreature)fitPlusCreature[parentPos1][0]).chromosome[j] + mutationChange;
+				} else {
+					child.chromosome[j] = ((MyCreature)fitPlusCreature[parentPos1][0]).chromosome[j];
+				}
+			} else {
+				if(((MyCreature)fitPlusCreature[parentPos2][0]).chromosome[j] + mutationChange < 1 && ((MyCreature)fitPlusCreature[parentPos2][0]).chromosome[j] + mutationChange > 0) {
+					child.chromosome[j] = ((MyCreature)fitPlusCreature[parentPos2][0]).chromosome[j] + mutationChange;
+				} else {
+					child.chromosome[j] = ((MyCreature)fitPlusCreature[parentPos2][0]).chromosome[j];
+				}
 			}
 		}
 		  
