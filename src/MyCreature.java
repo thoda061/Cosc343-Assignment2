@@ -16,6 +16,7 @@ public class MyCreature extends Creature {
   Random rand = new Random();
   
   float[] chromosome;
+  int searchDirection;
 
   /* Empty constructor - might be a good idea here to put the code that 
    initialises the chromosome to some random state   
@@ -25,9 +26,15 @@ public class MyCreature extends Creature {
                       to produce on every turn
   */
   public MyCreature(int numPercepts, int numActions) {
-	  chromosome = new float[16];
-	  for(int i = 0; i < 16; i++) {
+	  chromosome = new float[20];
+	  for(int i = 0; i < 20; i++) {
 		  chromosome[i] = rand.nextFloat();
+	  }
+	  float flip = rand.nextFloat();
+	  if(flip < 0.5) {
+		  searchDirection = rand.nextInt(4);
+	  } else {
+		  searchDirection = rand.nextInt(4) + 5;
 	  }
   }
   
@@ -262,7 +269,11 @@ public class MyCreature extends Creature {
 		}
 		
 		//If all other action are 0, this ensures a random move.
-		actions[10] = 0.000001f;
+		if((chromosome[16] +  chromosome[17])/2 > (chromosome[18] + chromosome[19])/2) {
+			actions[10] = 0.000001f;
+		}else if(actions[searchDirection] != 0) {
+			actions[searchDirection] = 0.000001f;
+		}
 		
 		return actions;
   }

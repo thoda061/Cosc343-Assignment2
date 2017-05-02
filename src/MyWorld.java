@@ -52,7 +52,7 @@ public class MyWorld extends World {
      int gridSize = 24;
      int windowWidth =  1600;
      int windowHeight = 900;
-     boolean repeatableMode = true;
+     boolean repeatableMode = false;
      
       /* Here you can specify percept format to use - there are three to
          chose from: 1, 2, 3.  Refer to the Assignment2 instructions for
@@ -269,9 +269,9 @@ public MyCreature[] nextGeneration(Creature[] old_population_btc, int numCreatur
       for(int j = child.chromosome.length/2; j < child.chromosome.length; j++) {
          child.chromosome[j] = ((MyCreature)fitPlusCreature[parentPos2][0]).chromosome[j];
       }*/
+		float flip = rand.nextFloat();
 		
 		for(int j = 0; j < child.chromosome.length; j++){
-			float flip = rand.nextFloat();
 			float mutation = rand.nextFloat();
 			float mutationChange;
 			
@@ -311,6 +311,13 @@ public MyCreature[] nextGeneration(Creature[] old_population_btc, int numCreatur
 					child.chromosome[j] = ((MyCreature)fitPlusCreature[parentPos2][0]).chromosome[j];
 				}
 			}
+		}
+		
+		flip = rand.nextFloat();
+		if(flip > 0.5) {
+			child.searchDirection = ((MyCreature)fitPlusCreature[parentPos1][0]).searchDirection;
+		} else {
+			child.searchDirection = ((MyCreature)fitPlusCreature[parentPos2][0]).searchDirection;
 		}
 		  
       new_population[i] = child;
