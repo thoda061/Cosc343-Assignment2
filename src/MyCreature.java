@@ -26,10 +26,14 @@ public class MyCreature extends Creature {
                       to produce on every turn
   */
   public MyCreature(int numPercepts, int numActions) {
-	  chromosome = new float[20];
+	  chromosome = new float[49];
 	  for(int i = 0; i < 20; i++) {
 		  chromosome[i] = rand.nextFloat();
 	  }
+	  /*chromosome = new float[20];
+	  for(int i = 0; i < 20; i++) {
+		  chromosome[i] = rand.nextFloat();
+	  }*/
 	  float flip = rand.nextFloat();
 	  if(flip < 0.5) {
 		  searchDirection = rand.nextInt(4);
@@ -65,6 +69,52 @@ public class MyCreature extends Creature {
 			i = 0.0f;
 		}
 		
+		if(percepts[0] != 0 || percepts[1] != 0) {
+			for(int i = 0; i < 9; i++) {
+				if(chromosome[i] > actions[i]) {
+					actions[i] = chromosome[i];
+				}
+			}
+		}
+		
+		if(percepts[2] != 0 || percepts[3] != 0) {
+			for(int i = 0; i < 9; i++) {
+				if(chromosome[i+9] > actions[i]) {
+					actions[i] = chromosome[i+9];
+				}
+			}
+		}
+		
+		if(percepts[4] != 0 || percepts[5] != 0) {
+			for(int i = 0; i < 9; i++) {
+				if(chromosome[i+18] > actions[i]) {
+					actions[i] = chromosome[i+18];
+				}
+			}
+		}
+		
+		if(percepts[6] != 0) {
+			for(int i = 0; i < 10; i++) {
+				if(chromosome[i+27] > actions[i]) {
+					actions[i] = chromosome[i+27];
+				}
+			}
+		}
+		
+		if(percepts[7] != 0) {
+			for(int i = 0; i < 10; i++) {
+				if(chromosome[i+37] > actions[i]) {
+					actions[i] = chromosome[i+37];
+				}
+			}
+		}
+		
+		if(chromosome[47] > chromosome[48]) {
+			actions[10] = 0.000001f;
+		}else if(actions[searchDirection] != 0) {
+			actions[searchDirection] = 0.000001f;
+		}
+		/*
 		//Determins whether to run away or go to monster
 		if(percepts[0] != 0 || percepts[1] != 0) {
 			String posistion = String.valueOf(percepts[0]) + String.valueOf(percepts[1]);
@@ -273,7 +323,7 @@ public class MyCreature extends Creature {
 			actions[10] = 0.000001f;
 		}else if(actions[searchDirection] != 0) {
 			actions[searchDirection] = 0.000001f;
-		}
+		}*/
 		
 		return actions;
   }

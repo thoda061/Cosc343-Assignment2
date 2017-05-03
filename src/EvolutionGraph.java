@@ -27,7 +27,7 @@ public class EvolutionGraph extends ApplicationFrame{
 			true,true,false);
 		
 		ChartPanel graphPanel = new ChartPanel(graph);
-		graphPanel.setPreferredSize(new java.awt.Dimension(560, 367));
+		graphPanel.setPreferredSize(new java.awt.Dimension(660, 367));
 		XYPlot plot = graph.getXYPlot();
 		
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();

@@ -21,8 +21,8 @@ public class MyWorld extends World {
    * and the number of generations that the genetic algorithm will 
    * execute.
   */
-  private final int _numTurns = 100;
-  private final int _numGenerations = 500;
+  private final int _numTurns = 50;
+  private final int _numGenerations = 1000;
   private XYSeries dataset = new XYSeries("fitness");
   private float gen = 1f;
   
@@ -57,7 +57,7 @@ public class MyWorld extends World {
      int gridSize = 24;
      int windowWidth =  1600;
      int windowHeight = 900;
-     boolean repeatableMode = false;
+     boolean repeatableMode = true;
      
       /* Here you can specify percept format to use - there are three to
          chose from: 1, 2, 3.  Refer to the Assignment2 instructions for
@@ -364,7 +364,7 @@ public MyCreature[] nextGeneration(Creature[] old_population_btc, int numCreatur
      
      
      // Return new population of cratures.
-	  if(gen == 500) {
+	  if(gen == 2) {
 		  XYSeriesCollection finalDataset = new XYSeriesCollection();
 		  finalDataset.addSeries(dataset);
 		  EvolutionGraph graph = new EvolutionGraph("Average Fitness", "Fitness over Generations", finalDataset);
