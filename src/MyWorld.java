@@ -1,6 +1,9 @@
 import cosc343.assig2.World;
 import cosc343.assig2.Creature;
 import java.util.*;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.RefineryUtilities;
 
 /**
 * The MyWorld extends the cosc343 assignment 2 World.  Here you can set 
@@ -20,6 +23,8 @@ public class MyWorld extends World {
   */
   private final int _numTurns = 100;
   private final int _numGenerations = 500;
+  private XYSeries dataset = new XYSeries("fitness");
+  private float gen = 1f;
   
 
   
@@ -169,13 +174,16 @@ public MyCreature[] nextGeneration(Creature[] old_population_btc, int numCreatur
    for(int i =0; i < fitness.length; i++) {
       avgFit += fitness[i];
    }
+	avgFit /= (float) numCreatures; 
+	dataset.add(gen, avgFit);
+	gen++;
+	
      
      // Right now the information is used to print some stats...but you should
      // use this information to access creatures fitness.  It's up to you how
      // you define your fitness function.  You should add a print out or
      // some visual display of average fitness over generations.
    avgLifeTime /= (float) numCreatures;
-   avgFit /= (float) numCreatures; 
    avgEnegryLeft /= numCreatures;
    System.out.println("Simulation stats:");
    System.out.println("  Survivors    : " + nSurvivors + " out of " + numCreatures);
@@ -356,6 +364,14 @@ public MyCreature[] nextGeneration(Creature[] old_population_btc, int numCreatur
      
      
      // Return new population of cratures.
+	  if(gen == 500) {
+		  XYSeriesCollection finalDataset = new XYSeriesCollection();
+		  finalDataset.addSeries(dataset);
+		  EvolutionGraph graph = new EvolutionGraph("Average Fitness", "Fitness over Generations", finalDataset);
+		  graph.pack();
+		  RefineryUtilities.centerFrameOnScreen(graph);
+		  graph.setVisible(true);
+	  }
      return new_population;
   }
   
