@@ -26,11 +26,20 @@ public class MyCreature extends Creature {
                       to produce on every turn
   */
   public MyCreature(int numPercepts, int numActions) {
-	  chromosome = new float[49];
-	  for(int i = 0; i < 20; i++) {
+	  chromosome = new float[48];
+	  
+	  //Iteration 3
+	  for(int i = 0; i < 48; i++) {
 		  chromosome[i] = rand.nextFloat();
 	  }
-	  /*chromosome = new float[20];
+	  
+	  //Iteration 2
+	  /*for(int i = 0; i < 49; i++) {
+		  chromosome[i] = rand.nextFloat();
+	  }*/
+	  /*
+	  //Iteration 1
+	  chromosome = new float[20];
 	  for(int i = 0; i < 20; i++) {
 		  chromosome[i] = rand.nextFloat();
 	  }*/
@@ -64,12 +73,148 @@ public class MyCreature extends Creature {
       
       // At the moment, the actions are chosen completely at random, ignoring
       // the percepts.  You need to replace this code.
+		
       float actions[] = new float[numExpectedActions];
 		for(float i: actions) {
 			i = 0.0f;
 		}
 		
-		if(percepts[0] != 0 || percepts[1] != 0) {
+		//Iteration 3
+		boolean goAwayMonster;
+		boolean nearMonster = false;
+		if(chromosome[0] > chromosome[1]) {
+			goAwayMonster = true;
+		} else {
+			goAwayMonster = false;
+		}
+		
+		for(int i = 0; i < 9; i++) {
+			if(percepts[i] == 1) {
+				nearMonster = true;
+			}
+		}
+		
+		if(nearMonster) {
+			for(int i = 0; i < 9; i++) {
+				if(percepts[i] == 1) {
+					if(goAwayMonster) {
+						actions[8-i] = chromosome[10-i];
+					} else {
+						actions[i] = chromosome[i+2];
+					}
+				}
+			}
+		}
+		
+		boolean goAwayCreature;
+		boolean nearCreature = false;
+		if(chromosome[11] > chromosome[12]) {
+			goAwayCreature = true;
+		} else {
+			goAwayCreature = false;
+		}
+		
+		for(int i = 9; i < 18; i++) {
+			if(percepts[i] == 1) {
+				nearCreature = true;
+			}
+		}
+		
+		if(nearCreature) {
+			for(int i = 9; i < 18; i++) {
+				if(percepts[i] == 1) {
+					if(goAwayCreature) {
+						if(actions[8-(i-9)] < chromosome[26-i]){
+							actions[8-(i-9)] = chromosome[26-i];
+						}
+					} else {
+						if(actions[i-9] < chromosome[i+4]){
+							actions[i-9] = chromosome[i+4];
+						}
+					}
+				}
+			}
+		}
+		
+		boolean goAwayGreenFood;
+		boolean nearGreenFood = false;
+		if(chromosome[22] > chromosome[23]) {
+			goAwayGreenFood = true;
+		} else {
+			goAwayGreenFood = false;
+		}
+		
+		for(int i = 18; i < 27; i++) {
+			if(percepts[i] == 1) {
+				nearGreenFood = true;
+			}
+		}
+		
+		if(nearGreenFood) {
+			for(int i = 18; i < 27; i++) {
+				if(percepts[i] == 1) {
+					if(goAwayGreenFood) {
+						if(actions[8-(i-18)] < chromosome[50-i]){
+							actions[8-(i-18)] = chromosome[50-i];
+						}
+					} else {
+						if(actions[i-18] < chromosome[i+6]){
+							actions[i-18] = chromosome[i+6];
+						}
+					}
+					if(i == 22) {
+						if(actions[9] < chromosome[46]) {
+							actions[9] = chromosome[46];
+						}
+					}
+				}
+			}
+		}
+		
+		boolean goAwayRedFood;
+		boolean nearRedFood = false;
+		if(chromosome[33] > chromosome[34]) {
+			goAwayRedFood = true;
+		} else {
+			goAwayRedFood = false;
+		}
+		
+		for(int i = 18; i < 27; i++) {
+			if(percepts[i] == 2) {
+				nearRedFood = true;
+			}
+		}
+		
+		if(nearRedFood) {
+			for(int i = 18; i < 27; i++) {
+				if(percepts[i] == 2) {
+					if(goAwayRedFood) {
+						if(actions[8-(i-18)] < chromosome[61-i]){
+							actions[8-(i-18)] = chromosome[61-i];
+						}
+					} else {
+						if(actions[i-18] < chromosome[i+17]){
+							actions[i-18] = chromosome[i+17];
+						}
+					}
+					if(i == 22) {
+						if(actions[9] < chromosome[47]) {
+							actions[9] = chromosome[47];
+						}
+					}
+				}
+			}
+		}
+		
+		if(chromosome[44] > chromosome[45]) {
+			actions[10] = 0.000001f;
+		}else if(actions[searchDirection] != 0) {
+			actions[searchDirection] = 0.000001f;
+		}
+		
+		
+		//Iteration 2
+		/*if(percepts[0] != 0 || percepts[1] != 0) {
 			for(int i = 0; i < 9; i++) {
 				if(chromosome[i] > actions[i]) {
 					actions[i] = chromosome[i];
@@ -113,7 +258,9 @@ public class MyCreature extends Creature {
 			actions[10] = 0.000001f;
 		}else if(actions[searchDirection] != 0) {
 			actions[searchDirection] = 0.000001f;
-		}
+		}*/
+		
+		//Iteration 1
 		/*
 		//Determins whether to run away or go to monster
 		if(percepts[0] != 0 || percepts[1] != 0) {
@@ -323,7 +470,8 @@ public class MyCreature extends Creature {
 			actions[10] = 0.000001f;
 		}else if(actions[searchDirection] != 0) {
 			actions[searchDirection] = 0.000001f;
-		}*/
+		}
+		*/
 		
 		return actions;
   }

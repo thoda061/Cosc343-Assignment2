@@ -21,8 +21,8 @@ public class MyWorld extends World {
    * and the number of generations that the genetic algorithm will 
    * execute.
   */
-  private final int _numTurns = 50;
-  private final int _numGenerations = 1000;
+  private final int _numTurns = 100;
+  private final int _numGenerations = 500;
   private XYSeries dataset = new XYSeries("fitness");
   private float gen = 1f;
   
@@ -54,16 +54,16 @@ public class MyWorld extends World {
   public static void main(String[] args) {
      // Here you can specify the grid size, window size and whether torun
      // in repeatable mode or not
-     int gridSize = 24;
+     int gridSize = 50;
      int windowWidth =  1600;
      int windowHeight = 900;
-     boolean repeatableMode = true;
+     boolean repeatableMode = false;
      
       /* Here you can specify percept format to use - there are three to
          chose from: 1, 2, 3.  Refer to the Assignment2 instructions for
          explanation of the three percept formats.
       */
-     int perceptFormat = 1;     
+     int perceptFormat = 2;     
      
      // Instantiate MyWorld object.  The rest of the application is driven
      // from the window that will be displayed.
@@ -281,16 +281,16 @@ public MyCreature[] nextGeneration(Creature[] old_population_btc, int numCreatur
 		
 		for(int j = 0; j < child.chromosome.length; j++){
 			float mutation = rand.nextFloat();
-			float mutationChange;
+			float mutationChange = 0;
 			
 			
-			if(mutation < 0.01) {
+			if(mutation < 0.001) {
 				if(flip < 0.5) {
-					mutationChange = -0.1f;
+					mutationChange = -0.2f * rand.nextFloat();
 				} else {
-					mutationChange = 0.1f;
+					mutationChange = 0.2f * rand.nextFloat();
 				}
-			} else if (mutation < 0.11) {
+			}/* else if (mutation < 0.11) {
 				if(flip < 0.5) {
 					mutationChange = -0.01f;
 				} else {
@@ -302,7 +302,7 @@ public MyCreature[] nextGeneration(Creature[] old_population_btc, int numCreatur
 				} else {
 					mutationChange = 0.001f;
 				}
-			}
+			}*/
 			
 			flip = rand.nextFloat();
 			
